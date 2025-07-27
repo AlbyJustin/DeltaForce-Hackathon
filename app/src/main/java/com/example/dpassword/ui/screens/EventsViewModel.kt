@@ -1,14 +1,14 @@
-package com.example.dpass.ui.screens
+package com.example.dpassword.ui.screens
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.dpass.network.EventRequest
-import com.example.dpass.network.EventResponse
-import com.example.dpass.network.RSVPRequest
-import com.example.dpass.network.RetrofitEventsClient
+import com.example.dpassword.network.EventRequest
+import com.example.dpassword.network.EventResponse
+import com.example.dpassword.network.RSVPRequest
+import com.example.dpassword.network.RetrofitEventsClient
 import kotlinx.coroutines.launch
 
 class EventViewModel : ViewModel() {

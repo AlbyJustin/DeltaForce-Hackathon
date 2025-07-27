@@ -1,6 +1,5 @@
-package com.example.dpass.ui.theme
+package com.example.dpassword.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

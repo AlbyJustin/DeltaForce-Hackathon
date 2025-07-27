@@ -1,4 +1,4 @@
-package com.example.dpass
+package com.example.dpassword
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

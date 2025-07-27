@@ -1,4 +1,4 @@
-package com.example.dpass
+package com.example.dpassword
 
 import org.junit.Test
 

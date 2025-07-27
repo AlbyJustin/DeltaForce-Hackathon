@@ -1,4 +1,4 @@
-package com.example.dpass.network
+package com.example.dpassword.network
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

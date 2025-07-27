@@ -1,9 +1,10 @@
-package com.example.dpass.ui.screens
+package com.example.dpassword.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
@@ -34,6 +35,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 fun EventScreen(viewModel: EventViewModel = viewModel(), onEventListClick: () -> Unit) {
     var eventId by remember { mutableStateOf(1) }
     var email by remember { mutableStateOf("") }
+    var displayQR by remember { mutableStateOf(false) }
 
     Column(modifier = Modifier
         .verticalScroll(rememberScrollState())
@@ -59,11 +61,11 @@ fun EventScreen(viewModel: EventViewModel = viewModel(), onEventListClick: () ->
                 Text("Load Event")
             }
             Spacer(Modifier.width(8.dp))
-            Button(onClick = { viewModel.rsvp(eventId, email) }) {
+            Button(onClick = { viewModel.rsvp(eventId, email); displayQR = true }) {
                 Text("RSVP")
             }
             Spacer(Modifier.width(8.dp))
-            Button(onClick = { viewModel.cancel(eventId, email) }) {
+            Button(onClick = { viewModel.cancel(eventId, email); displayQR = false }) {
                 Text("Cancel")
             }
         }
@@ -88,7 +90,12 @@ fun EventScreen(viewModel: EventViewModel = viewModel(), onEventListClick: () ->
         Button(onClick = onEventListClick) {
             Text("Event List")
         }
+
+        if (displayQR)
+            QrCodeGenerator(content = email)
+
     }
+
 
 }
 
@@ -96,7 +103,8 @@ fun EventScreen(viewModel: EventViewModel = viewModel(), onEventListClick: () ->
 fun EventListScreen(
     viewModel: EventViewModel = viewModel(),
     onEventClick: () -> Unit,
-    onCreateEventClick: () -> Unit
+    onCreateEventClick: () -> Unit,
+    onQRScanClick: () -> Unit
 ) {
     viewModel.getEvents()
     val events = viewModel.eventStates ?: emptyList()
@@ -129,6 +137,9 @@ fun EventListScreen(
         Button(onClick = onEventClick) {
             Text("Make RSVP")
         }
+        Button(onClick = onQRScanClick) {
+            Text("Scan QR Code")
+        }
     }
 }
 
@@ -160,7 +171,7 @@ fun CreateEventScreen(viewModel: EventViewModel = viewModel(), onEventListClick:
         OutlinedTextField(
             value = maxSeats.toString(),
             onValueChange = { maxSeats = it.toIntOrNull() ?: 0 },
-            label = { Text("Deadline") }
+            label = { Text("Max Seats") }
         )
         OutlinedTextField(
             value = deadline,

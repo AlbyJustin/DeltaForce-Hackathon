@@ -1,13 +1,11 @@
-package com.example.dpass.ui.screens
+package com.example.dpassword.ui.screens
 
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.dpass.network.AuthorizationResponse
-import com.example.dpass.network.DAuthApiClients
-import com.example.dpass.network.TokenResponse
-import com.example.dpass.network.UserInfoResponse
+import com.example.dpassword.network.DAuthApiClients
+import com.example.dpassword.network.UserInfoResponse
 import kotlinx.coroutines.launch
 
 class dPassViewModel: ViewModel() {

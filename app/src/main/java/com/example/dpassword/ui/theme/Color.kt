@@ -1,4 +1,4 @@
-package com.example.dpass.ui.theme
+package com.example.dpassword.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

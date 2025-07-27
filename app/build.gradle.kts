@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.dpass"
+    namespace = "com.example.dpassword"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.dpass"
+        applicationId = "com.example.dpassword"
         minSdk = 24
         targetSdk = 35
         versionCode = 1
@@ -40,6 +40,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.zxing.android.embedded)
     implementation(libs.androidx.browser)
     implementation(libs.quickie.bundled)
     implementation (libs.androidx.lifecycle.viewmodel.compose)
