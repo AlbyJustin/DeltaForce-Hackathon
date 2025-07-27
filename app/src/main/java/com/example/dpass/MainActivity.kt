@@ -1,6 +1,5 @@
 package com.example.dpass
 
-import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -10,21 +9,22 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.dpass.ui.screens.dPassViewModel
 import com.example.dpass.ui.theme.DPassTheme
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.dpass.network.AuthorizationResponse
-import com.example.dpass.ui.screens.QrCodeScreen
-import kotlinx.coroutines.launch
 import androidx.core.net.toUri
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.dpass.ui.screens.CreateEventScreen
+import com.example.dpass.ui.screens.EventListScreen
+import com.example.dpass.ui.screens.EventScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,14 +32,62 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             DPassTheme {
-                LoginScreen()
+                MainApp()
             }
         }
     }
 }
 
+enum class Screens {
+    Login,
+    EventList,
+    Event,
+    CreateEvent,
+    QrCode
+}
+
 @Composable
-fun LoginScreen(viewModel: dPassViewModel = viewModel()) {
+fun MainApp(navController: NavHostController = rememberNavController()) {
+    NavHost(
+        navController = navController,
+        startDestination = Screens.EventList.name,
+        modifier = Modifier.padding(8.dp)
+    ) {
+        composable(Screens.Login.name) {
+            LoginScreen()
+        }
+        composable(Screens.EventList.name) {
+            EventListScreen(
+                onEventClick = {
+                    navController.navigate(Screens.Event.name)
+                },
+                onCreateEventClick = {
+                    navController.navigate(Screens.CreateEvent.name)
+                }
+            )
+        }
+        composable(Screens.Event.name) {
+            EventScreen(
+                onEventListClick = {
+                    navController.navigate(Screens.EventList.name)
+                }
+
+            )
+        }
+        composable(Screens.CreateEvent.name) {
+            CreateEventScreen(
+                onEventListClick = {
+                    navController.navigate(Screens.EventList.name)
+                }
+            )
+        }
+    }
+}
+
+@Composable
+fun LoginScreen(
+    viewModel: dPassViewModel = viewModel(),
+) {
 
     val context = LocalContext.current
 
@@ -66,5 +114,6 @@ fun LoginScreen(viewModel: dPassViewModel = viewModel()) {
             Text(text = "Authorize")
         }
     }
+
 }
 
