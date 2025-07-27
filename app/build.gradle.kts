@@ -40,7 +40,15 @@ android {
 }
 
 dependencies {
-
+    implementation(libs.androidx.browser)
+    implementation(libs.quickie.bundled)
+    implementation (libs.androidx.lifecycle.viewmodel.compose)
+    implementation (libs.androidx.lifecycle.runtime.ktx.v262)
+    implementation (libs.retrofit)
+    implementation (libs.converter.gson)
+    implementation (libs.logging.interceptor)
+    implementation (libs.androidx.activity.compose.v180)
+    implementation (libs.androidx.runtime.livedata)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
